@@ -35,7 +35,7 @@ class Products extends Component {
     }
 }
 
-const mapStateToProps = (products) => {
+const mapStateToProps = ({products}) => {
     return {
         products
     }

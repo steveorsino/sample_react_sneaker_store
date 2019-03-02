@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Section from './Section'
+import Loader from 'react-loader-spinner'
+import { addToCart } from '../actions/products'
 
 const SDiv = styled.div`
   display: flex;
@@ -12,11 +14,63 @@ const SDiv = styled.div`
   margin: auto;
 `
 
+const LoaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+  margin-top: 50px;
+`
+
 const SNeakerDiv = styled.div`
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  width: 600px;
+`
+
+const SneakerImg = styled.img`
+  width: 500px;
+  height: auto;
+`
+const SneakerDisc = styled.div`
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+`
+const PriceTxt = styled.p`
+  font-size: 24px;
+`
+
+const AddBtn = styled.button`
+  width: 100px;
+  height: 32px;
+  border: 2px solid black;
+  font-size: 16px;
+  background-color: transparent;
+  cursor: pointer;
+
+  :hover {
+    background-color: black;
+    color: white;
+  }
+`
+
+const PriceAddDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 `
 
 class SneakerView extends Component {
+
+  handleAddSneakerToCart (sneaker) {
+    this.props.dispatch(addToCart(sneaker))
+    
+  }
 
   render() {
     const pos = window.location.pathname.lastIndexOf('/');
@@ -24,15 +78,37 @@ class SneakerView extends Component {
     if (this.props.products === undefined) {
       return <h1>Loading</h1>
     }
+
     const sneaker = this.props.products[sid];
+
     return (
       <Fragment>
         <SDiv>
           {sneaker === undefined
-            ? 'LOADING' 
+            ? <LoaderDiv>
+                <Loader 
+                  type='Oval'
+                  color='black'
+                /> 
+              </LoaderDiv>
             : <Fragment>
                 <Section message={sneaker.name} />
-                
+                <SNeakerDiv>
+                  <SneakerImg
+                    alt={sneaker.name}
+                    src={window.location.origin + '/products/' + sneaker.img} 
+                  />
+                </SNeakerDiv>
+                <SneakerDisc>
+                  <span>{sneaker.description}</span>
+                  <PriceAddDiv>
+                    <PriceTxt>USD ${sneaker.price}</PriceTxt>
+                    <AddBtn
+                      onClick={() => this.handleAddSneakerToCart(sneaker)}>
+                      Add to Cart
+                    </AddBtn>
+                  </PriceAddDiv>
+                </SneakerDisc>
               </Fragment>
           }
         </SDiv>
@@ -41,7 +117,7 @@ class SneakerView extends Component {
   }
 }
 
-const mapStateToProps = (products) => {
+const mapStateToProps = ({products}) => {
   return {
     products
   }
