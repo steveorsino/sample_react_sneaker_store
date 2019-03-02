@@ -1,27 +1,66 @@
 import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { handleInitialData } from './actions/products'
 import Header from './components/Header';
 import Nav from './components/Nav'
 import MainImage from './components/MainImage'
 import Section from './components/Section'
 import Products from './components/Products'
-
+import SneakerView from './components/SneakerView'
 import './App.css';
 
 class App extends Component {
+
+  componentDidMount() {
+    console.log('APP COmponent did mount')
+    const { dispatch } = this.props;
+    dispatch(handleInitialData())
+      .then((res) => console.log('APP = ', this.props))
+  }
+
+
+
   render() {
+    console.log('In App render: ', this.props)
     return (
-      <Fragment>
-        <Nav />
-        <Header />
-        <MainImage />
-        <Section 
-          message={"Featured Products"}
-          //styles={{backgroundColor:'grey'}}
-        />
-        <Products />
-      </Fragment>   
+      <Router>
+        <Fragment>
+          <Route 
+            exact path='/'
+            render={() => (
+              <Fragment>
+                <Nav />
+                <Header />
+                <MainImage />
+                <Section 
+                  message={"Featured Products"}
+                  //styles={{backgroundColor:'grey'}}
+                />
+                <Products />
+              </Fragment>
+            )}
+          />
+          <Route 
+            exact path="/products/:id"
+            render={() => (
+              <Fragment>
+                <Nav />
+                <Header />
+                <SneakerView />
+              </Fragment>
+            )}
+          />
+        </Fragment>
+      </Router>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (products) => {
+  return {
+    products
+  }
+}
+
+export default connect(mapStateToProps)(App);

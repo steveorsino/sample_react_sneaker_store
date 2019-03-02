@@ -4,11 +4,16 @@ import styled from 'styled-components'
 const SNav = styled.nav`
     display: flex;
     background-color: black;
-    color: white;
+    color: #c1c1c1;
     justify-content: center;
 `
 const SSpan = styled.span`
     margin: 10px;
+
+    :hover {
+        color: white;
+        cursor: pointer;
+    }
 `
 
 class Nav extends Component {

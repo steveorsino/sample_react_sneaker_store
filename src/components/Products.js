@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { products } from '../products/products';
+import { connect } from 'react-redux';
 import Product from './Product';
 
 const SDiv = styled.div`
@@ -8,20 +8,21 @@ const SDiv = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-flow: row wrap;
-    width: 90%;
+    width: 80%;
     margin: auto;
 `
 
 class Products extends Component {
     
     render() {
-        console.log('Products' , products)
+        console.log('Products' , this.props.products)
         return (
             <SDiv>
-                {products.map((product) => {
+                {this.props.products.map((product) => {
                     return (
                         <Product 
                             key={product.id}
+                            id={product.id}
                             name={product.name}
                             price={product.price}
                             image={product.img}
@@ -34,4 +35,10 @@ class Products extends Component {
     }
 }
 
-export default Products;
+const mapStateToProps = (products) => {
+    return {
+        products
+    }
+}
+
+export default connect(mapStateToProps)(Products);

@@ -8,13 +8,17 @@ const SHeader = styled.header`
     background-color: black;
     color: white;
 `
+const STitle = styled.h2`
+    font-weight: 100;
+    font-size: 32px;
+`
 
 
 class Header extends Component {
     render() {
         return (
             <SHeader>
-                <h2>HEADER</h2>
+                <STitle>Sneaker Store</STitle>
             </SHeader>
         )
     }

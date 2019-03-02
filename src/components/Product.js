@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SDiv = styled.div`
     display: flex;
@@ -14,6 +15,7 @@ const SDiv = styled.div`
     
     :hover {
         opacity: 0.7;
+        cursor: pointer;
     }
 `
 const SImg = styled.img`
@@ -48,18 +50,20 @@ const SInfo = styled.div`
 class Product extends Component {
     render() {
         return (
-            <SDiv>
-                <SImgCont>
-                    <SImg
-                        src={window.location.origin + '/products/' + this.props.image} 
-                        alt={this.props.name}
-                    />
-                </SImgCont>
-                <SInfo>
-                    <SName>{this.props.name}</SName>
-                    <p>${this.props.price}</p>
-                </SInfo>
-            </SDiv>
+            <Link to={`/products/${this.props.id}`}>
+                <SDiv>
+                    <SImgCont>
+                        <SImg
+                            src={window.location.origin + '/products/' + this.props.image} 
+                            alt={this.props.name}
+                        />
+                    </SImgCont>
+                    <SInfo>
+                        <SName>{this.props.name}</SName>
+                        <p>${this.props.price}</p>
+                    </SInfo>
+                </SDiv>
+            </Link>
         );
     }
 }
