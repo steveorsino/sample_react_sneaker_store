@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 const SNav = styled.nav`
     display: flex;
     background-color: black;
-
     justify-content: center;
 `
 const SSpan = styled(Link)`
@@ -20,6 +19,10 @@ const SSpan = styled(Link)`
     }
 `
 
+const LoginLnk = styled(SSpan)`
+
+`
+
 class Nav extends Component {
     render() {
         return (
@@ -29,7 +32,8 @@ class Nav extends Component {
                 </SSpan>
                 <SSpan to='/'>About</SSpan>
                 <SSpan to='/'>Products</SSpan>
-                <SSpan to='/'>Cart {this.props.cart.length}</SSpan>
+                <SSpan to='/cart'>Cart {this.props.cart.length}</SSpan>
+                <LoginLnk to='/'>Log in</LoginLnk>
             </SNav>
         );
     }

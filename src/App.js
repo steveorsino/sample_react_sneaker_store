@@ -8,18 +8,16 @@ import MainImage from './components/MainImage'
 import Section from './components/Section'
 import Products from './components/Products'
 import SneakerView from './components/SneakerView'
+import Cart from './components/Cart'
 import './App.css';
 
 class App extends Component {
 
   componentDidMount() {
-    console.log('APP COmponent did mount')
     const { dispatch } = this.props;
     dispatch(handleInitialData())
       .then((res) => console.log('APP = ', this.props))
   }
-
-
 
   render() {
     console.log('In App render: ', this.props)
@@ -48,6 +46,16 @@ class App extends Component {
                 <Nav />
                 <Header />
                 <SneakerView />
+              </Fragment>
+            )}
+          />
+          <Route
+            exact path='/cart'
+            render={() => (
+              <Fragment>
+                <Nav />
+                <Header />
+                <Cart />
               </Fragment>
             )}
           />

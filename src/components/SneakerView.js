@@ -69,15 +69,11 @@ class SneakerView extends Component {
 
   handleAddSneakerToCart (sneaker) {
     this.props.dispatch(addToCart(sneaker))
-    
   }
 
   render() {
     const pos = window.location.pathname.lastIndexOf('/');
     const sid = window.location.pathname.substring(pos + 1);
-    if (this.props.products === undefined) {
-      return <h1>Loading</h1>
-    }
 
     const sneaker = this.props.products[sid];
 
