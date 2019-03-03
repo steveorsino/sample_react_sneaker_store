@@ -69,6 +69,14 @@ class SneakerView extends Component {
 
   handleAddSneakerToCart (sneaker) {
     this.props.dispatch(addToCart(sneaker))
+    //console.log(localStorage.getItem('SNEAKER_CART'))
+    if (localStorage.getItem('SNEAKER_CART') === null ) {
+      localStorage.setItem('SNEAKER_CART', JSON.stringify(sneaker))
+    } else {
+      const cart = JSON.parse(localStorage.getItem('SNEAKER_CART'))
+      console.log(cart)
+
+    }
   }
 
   render() {

@@ -27,7 +27,7 @@ class Nav extends Component {
     render() {
         return (
             <SNav>
-                <SSpan to='/' exact>
+                <SSpan to='/' >
                     Home
                 </SSpan>
                 <SSpan to='/'>About</SSpan>

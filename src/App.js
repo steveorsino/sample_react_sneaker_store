@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleInitialData } from './actions/products'
+import { handleInitialData, receiveProducts } from './actions/products'
 import Header from './components/Header';
 import Nav from './components/Nav'
 import MainImage from './components/MainImage'
@@ -10,13 +10,26 @@ import Products from './components/Products'
 import SneakerView from './components/SneakerView'
 import Cart from './components/Cart'
 import './App.css';
+import axios from 'axios'
+
+const instance = axios.create({
+  baseURL: 'https://sample-react-sneaker-store.firebaseio.com/'
+})
 
 class App extends Component {
 
   componentDidMount() {
+
     const { dispatch } = this.props;
-    dispatch(handleInitialData())
-      .then((res) => console.log('APP = ', this.props))
+    const products = [];
+    instance.get('/products.json')
+      .then((response) => {
+        for (let key in response.data){
+          products.push(...response.data[key].products)
+        }
+        dispatch(receiveProducts(products))
+      })
+
   }
 
   render() {

@@ -29,8 +29,20 @@ const ItemPrice = styled.span`
 const TotalSection = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+`
+const TotalSectionValue = styled(TotalSection)`
+  align-items: flex-end;
+  margin-left: 50px;
+`
+
+const TotalWrap = styled.div`
+  display: flex;
+  width:100%;
   justify-content: flex-end;
 `
+
 class Cart extends Component {
   render() {
     const TAX_RATE = .07
@@ -55,7 +67,6 @@ class Cart extends Component {
               </LoaderDiv>
             : <Fragment>
                 {this.props.cart.map((item) => (
-                
                   <CartItem
                     key={item.id}
                     id={item.id}
@@ -63,15 +74,20 @@ class Cart extends Component {
                     name={item.name}
                     price={item.price}
                   />
-
                 ))}
-              <TotalSection>
-                <ItemPrice>Subtotal ${subtotal.toFixed(2)}</ItemPrice>
-                <ItemPrice>Tax ${TaxAmt.toFixed(2)}</ItemPrice>
-                <ItemPrice>Total ${totalAmt.toFixed(2)}</ItemPrice>
-              </TotalSection>
-
-            </Fragment>
+                <TotalWrap>
+                  <TotalSection>
+                    <ItemPrice>Subtotal </ItemPrice>
+                    <ItemPrice>Tax </ItemPrice>
+                    <ItemPrice>Total </ItemPrice>
+                  </TotalSection>
+                  <TotalSectionValue>
+                    <ItemPrice>${subtotal.toFixed(2)}</ItemPrice>
+                    <ItemPrice>${TaxAmt.toFixed(2)}</ItemPrice>
+                    <ItemPrice>${totalAmt.toFixed(2)}</ItemPrice>
+                  </TotalSectionValue>
+                </TotalWrap>
+              </Fragment>
           }
         </SDiv>
       </Fragment>
