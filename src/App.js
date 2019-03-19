@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData, receiveProducts } from './actions/products'
+import { addToCart } from './actions/products'
 import Header from './components/Header';
 import Nav from './components/Nav'
 import MainImage from './components/MainImage'
@@ -29,6 +30,20 @@ class App extends Component {
         }
         dispatch(receiveProducts(products))
       })
+
+    //this.props.dispatch(addToCart(sneaker))
+
+    if (localStorage.getItem('SNEAKER_CART') !== null ) {
+      const cart = JSON.parse(localStorage.getItem('SNEAKER_CART'))
+      console.log("IN APP Local Storage =", cart)
+      const sneakers = cart.sneakers
+
+      const arr = Object.keys((sneakers))
+      arr.map((key) => {
+        console.log('SNEAKERS', sneakers[key])
+        this.props.dispatch(addToCart(sneakers[key]))
+      })
+    }
 
   }
 
