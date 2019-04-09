@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { deleteFromCart } from '../actions/products'
 import styled from 'styled-components'
 
 const ItemDiv = styled.div`
@@ -47,7 +49,37 @@ const RemoveBtn = styled.button`
 `
 
 class CartItem extends Component {
+
+  removeItem = (id) => {
+    console.log('REMOVE ITEM = ', id)
+    console.log('PROPS= ', this.props)
+    this.props.dispatch(deleteFromCart(id))
+    if (localStorage.getItem('SNEAKER_CART') === null ) {
+      return
+    } else {
+      const cart = JSON.parse(localStorage.getItem('SNEAKER_CART'))
+      let newCart = {
+        sneakers: {}
+      }
+      const arr = Object.keys(cart.sneakers)
+      console.log('CART = ', cart)
+      console.log('ARR = ', arr)
+      for (var thisid in cart.sneakers) {
+        console.log('THISID = ', thisid, typeof thisid)
+        console.log('ID', id,typeof id) 
+        if (thisid != id){
+          console.log('OK', thisid)
+          console.log('ADDING ', cart.sneakers)
+          newCart.sneakers[thisid] = {...cart.sneakers[thisid]}
+        }
+
+      }
+      console.log('newCart = ', newCart)
+      localStorage.setItem('SNEAKER_CART', JSON.stringify(newCart))
+    }
+  }
   render() {
+    console.log('ITEM PROPS = ', this.props)
     return (
       <ItemDiv>
         <ItemImgCont>
@@ -58,11 +90,19 @@ class CartItem extends Component {
         <ItemName>{this.props.name}</ItemName>
         <ItemPrice>
           ${this.props.price}
-          <RemoveBtn>X</RemoveBtn>
+          <RemoveBtn
+            onClick={() => this.removeItem(this.props.id)}
+          >X</RemoveBtn>
         </ItemPrice>
       </ItemDiv>
     )
   }
 }
 
-export default CartItem
+const mapStateToProps = ({products}) => {
+  return {
+    products
+  }
+}
+
+export default connect(mapStateToProps)(CartItem)
