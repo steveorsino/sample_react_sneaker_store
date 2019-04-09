@@ -62,19 +62,19 @@ class CartItem extends Component {
         sneakers: {}
       }
       const arr = Object.keys(cart.sneakers)
-      console.log('CART = ', cart)
-      console.log('ARR = ', arr)
+      //console.log('CART = ', cart)
+      //console.log('ARR = ', arr)
       for (var thisid in cart.sneakers) {
-        console.log('THISID = ', thisid, typeof thisid)
-        console.log('ID', id,typeof id) 
+        //console.log('THISID = ', thisid, typeof thisid)
+        //console.log('ID', id,typeof id) 
         if (thisid != id){
-          console.log('OK', thisid)
-          console.log('ADDING ', cart.sneakers)
+          //console.log('OK', thisid)
+          //console.log('ADDING ', cart.sneakers)
           newCart.sneakers[thisid] = {...cart.sneakers[thisid]}
         }
 
       }
-      console.log('newCart = ', newCart)
+      //console.log('newCart = ', newCart)
       localStorage.setItem('SNEAKER_CART', JSON.stringify(newCart))
     }
   }
